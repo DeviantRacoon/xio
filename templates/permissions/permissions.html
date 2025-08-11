@@ -6,7 +6,7 @@
 {% block content %}
 <div class="container py-4">
   <h1>Permisos</h1>
-  <a class="btn btn-primary mb-3" href="{% url 'permission-create' %}"><i class="bi bi-plus"></i> Nuevo</a>
+  <a class="btn btn-primary mb-3" href="{% url 'accounts:permission-create' %}"><i class="bi bi-plus"></i> Nuevo</a>
   <table class="table table-striped">
     <thead><tr><th>Nombre</th><th>Código</th><th></th></tr></thead>
     <tbody>
@@ -15,8 +15,8 @@
         <td>{{ perm.name }}</td>
         <td>{{ perm.code }}</td>
         <td>
-          <a class="btn btn-sm btn-secondary" href="{% url 'permission-edit' perm.pk %}"><i class="bi bi-pencil"></i></a>
-          <a class="btn btn-sm btn-danger" href="{% url 'permission-delete' perm.pk %}"><i class="bi bi-trash"></i></a>
+          <a class="btn btn-sm btn-secondary" href="{% url 'accounts:permission-edit' perm.pk %}"><i class="bi bi-pencil"></i></a>
+          <a class="btn btn-sm btn-danger" href="{% url 'accounts:permission-delete' perm.pk %}"><i class="bi bi-trash"></i></a>
         </td>
       </tr>
     {% empty %}
