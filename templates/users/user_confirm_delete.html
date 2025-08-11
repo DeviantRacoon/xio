@@ -10,7 +10,7 @@
   <form method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Desactivar</button>
-    <a class="btn btn-secondary" href="{% url 'accounts:user-list' %}">Cancelar</a>
+    <a class="btn btn-secondary" href="{% url 'user-list' %}">Cancelar</a>
   </form>
 </div>
 {% endblock %}
