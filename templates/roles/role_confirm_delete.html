@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Eliminar Rol{% endblock %}
+{% block module_css %}<link rel="stylesheet" href="{% static 'roles/roles.css' %}">{% endblock %}
+{% block module_js %}<script src="{% static 'roles/roles.js' %}"></script>{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h1>Eliminar Rol</h1>
+  <p>¿Deseas eliminar el rol {{ object.name }}?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a class="btn btn-secondary" href="{% url 'role-list' %}">Cancelar</a>
+  </form>
+</div>
+{% endblock %}
