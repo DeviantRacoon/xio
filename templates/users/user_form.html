@@ -8,7 +8,38 @@
   <h1>{% if object %}Editar{% else %}Nuevo{% endif %} Usuario</h1>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="mb-3">
+      {{ form.username.label_tag }}
+      {{ form.username }}
+    </div>
+    <div class="mb-3">
+      {{ form.email.label_tag }}
+      {{ form.email }}
+    </div>
+    <div class="mb-3">
+      {{ form.first_name.label_tag }}
+      {{ form.first_name }}
+    </div>
+    <div class="mb-3">
+      {{ form.last_name.label_tag }}
+      {{ form.last_name }}
+    </div>
+    <div class="form-check mb-3">
+      {{ form.is_active }}
+      <label class="form-check-label" for="{{ form.is_active.id_for_label }}">{{ form.is_active.label }}</label>
+    </div>
+    <div class="form-check mb-3">
+      {{ form.is_staff }}
+      <label class="form-check-label" for="{{ form.is_staff.id_for_label }}">{{ form.is_staff.label }}</label>
+    </div>
+    <div class="form-check mb-3">
+      {{ form.is_superuser }}
+      <label class="form-check-label" for="{{ form.is_superuser.id_for_label }}">{{ form.is_superuser.label }}</label>
+    </div>
+    <div class="mb-3">
+      {{ form.roles.label_tag }}
+      {{ form.roles }}
+    </div>
     <button type="submit" class="btn btn-primary">Guardar</button>
     <a class="btn btn-secondary" href="{% url 'accounts:user-list' %}">Cancelar</a>
   </form>

@@ -122,17 +122,39 @@ class UserForm(forms.ModelForm):
             "first_name",
             "last_name",
             "is_active",
+            "is_staff",
+            "is_superuser",
             "roles",
         ]
+        widgets = {
+            "username": forms.TextInput(attrs={"class": "form-control"}),
+            "email": forms.EmailInput(attrs={"class": "form-control"}),
+            "first_name": forms.TextInput(attrs={"class": "form-control"}),
+            "last_name": forms.TextInput(attrs={"class": "form-control"}),
+            "roles": forms.SelectMultiple(attrs={"class": "form-select"}),
+            "is_active": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            "is_staff": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            "is_superuser": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        }
 
 
 class RoleForm(forms.ModelForm):
     class Meta:
         model = Role
         fields = ["name", "description", "permissions"]
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+            "description": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
+            "permissions": forms.SelectMultiple(attrs={"class": "form-select"}),
+        }
 
 
 class PermissionForm(forms.ModelForm):
     class Meta:
         model = Permission
         fields = ["name", "code", "description"]
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+            "code": forms.TextInput(attrs={"class": "form-control"}),
+            "description": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
+        }

@@ -53,7 +53,7 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = User
     template_name = 'users/users.html'
     paginate_by = 10
-    permission_required = 'accounts.view_user'
+    permission_required = 'user_view'
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -70,6 +70,8 @@ class UserCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = User
     form_class = UserForm
     template_name = 'users/user_form.html'
+    success_url = reverse_lazy('user-list')
+    permission_required = 'user_create'
     success_url = reverse_lazy('accounts:user-list')
     permission_required = 'accounts.add_user'
 
@@ -78,6 +80,8 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = User
     form_class = UserForm
     template_name = 'users/user_form.html'
+    success_url = reverse_lazy('user-list')
+    permission_required = 'user_edit'
     success_url = reverse_lazy('accounts:user-list')
     permission_required = 'accounts.change_user'
 
@@ -85,6 +89,8 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 class UserDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = User
     template_name = 'users/user_confirm_delete.html'
+    success_url = reverse_lazy('user-list')
+    permission_required = 'user_delete'
     success_url = reverse_lazy('accounts:user-list')
     permission_required = 'accounts.delete_user'
 
@@ -98,13 +104,15 @@ class UserDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 class RoleListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Role
     template_name = 'roles/roles.html'
-    permission_required = 'accounts.view_role'
+    permission_required = 'role_view'
 
 
 class RoleCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Role
     form_class = RoleForm
     template_name = 'roles/role_form.html'
+    success_url = reverse_lazy('role-list')
+    permission_required = 'role_create'
     success_url = reverse_lazy('accounts:role-list')
     permission_required = 'accounts.add_role'
 
@@ -113,6 +121,8 @@ class RoleUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Role
     form_class = RoleForm
     template_name = 'roles/role_form.html'
+    success_url = reverse_lazy('role-list')
+    permission_required = 'role_edit'
     success_url = reverse_lazy('accounts:role-list')
     permission_required = 'accounts.change_role'
 
@@ -120,6 +130,8 @@ class RoleUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 class RoleDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Role
     template_name = 'roles/role_confirm_delete.html'
+    success_url = reverse_lazy('role-list')
+    permission_required = 'role_delete'
     success_url = reverse_lazy('accounts:role-list')
     permission_required = 'accounts.delete_role'
 
@@ -127,7 +139,7 @@ class RoleDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 class PermissionListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Permission
     template_name = 'permissions/permissions.html'
-    permission_required = 'accounts.view_permission'
+    permission_required = 'permission_view'
 
 
 class PermissionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
