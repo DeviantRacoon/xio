@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Desactivar Usuario{% endblock %}
+{% block module_css %}<link rel="stylesheet" href="{% static 'users/users.css' %}">{% endblock %}
+{% block module_js %}<script src="{% static 'users/users.js' %}"></script>{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h1>Desactivar Usuario</h1>
+  <p>¿Deseas desactivar a {{ object.username }}?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Desactivar</button>
+    <a class="btn btn-secondary" href="{% url 'user-list' %}">Cancelar</a>
+  </form>
+</div>
+{% endblock %}
