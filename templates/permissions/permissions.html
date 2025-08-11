@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Permisos{% endblock %}
+{% block module_css %}<link rel="stylesheet" href="{% static 'permissions/permissions.css' %}">{% endblock %}
+{% block module_js %}<script src="{% static 'permissions/permissions.js' %}"></script>{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h1>Permisos</h1>
+  <a class="btn btn-primary mb-3" href="{% url 'permission-create' %}"><i class="bi bi-plus"></i> Nuevo</a>
+  <table class="table table-striped">
+    <thead><tr><th>Nombre</th><th>Código</th><th></th></tr></thead>
+    <tbody>
+    {% for perm in object_list %}
+      <tr>
+        <td>{{ perm.name }}</td>
+        <td>{{ perm.code }}</td>
+        <td>
+          <a class="btn btn-sm btn-secondary" href="{% url 'permission-edit' perm.pk %}"><i class="bi bi-pencil"></i></a>
+          <a class="btn btn-sm btn-danger" href="{% url 'permission-delete' perm.pk %}"><i class="bi bi-trash"></i></a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="3">Sin permisos</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
