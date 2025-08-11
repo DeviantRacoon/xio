@@ -1,0 +1,112 @@
+# accounts/forms.py
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class BootstrapAuthenticationForm(AuthenticationForm):
+    """
+    Login accesible con Bootstrap 5:
+    - Autocomplete correcto (username/current-password)
+    - Lectura por lector de pantalla (aria-describedby)
+    - Mejor UX (autocapitalize none, spellcheck off, placeholders claros)
+    """
+    error_messages = {
+        "invalid_login": "Usuario o contraseña incorrectos.",
+        "inactive": "Esta cuenta está desactivada.",
+    }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['username'].label = "Usuario"
+        self.fields['username'].widget.attrs.update({
+            "class": "form-control",
+            "id": "id_username",
+            "placeholder": "Ingresa tu usuario",
+            "autocomplete": "username",
+            "autocapitalize": "none",
+            "spellcheck": "false",
+            "inputmode": "text",
+            "required": "required",
+            "aria-describedby": "usernameHelp",
+        })
+
+        self.fields['password'].label = "Contraseña"
+        self.fields['password'].widget.attrs.update({
+            "class": "form-control",
+            "id": "id_password",
+            "placeholder": "Ingresa tu contraseña",
+            "autocomplete": "current-password",
+            "required": "required",
+            "aria-describedby": "passwordHelp",
+        })
+
+
+class RegisterForm(UserCreationForm):
+    """
+    Registro accesible:
+    - Autocomplete específico por campo
+    - Placeholders y ayudas
+    - Validación de email único
+    """
+    email = forms.EmailField(
+        required=True,
+        label="Correo",
+        widget=forms.EmailInput(attrs={
+            "class": "form-control",
+            "id": "id_email",
+            "placeholder": "nombre@empresa.com",
+            "autocomplete": "email",
+            "inputmode": "email",
+            "aria-describedby": "emailHelp",
+        })
+    )
+
+    class Meta:
+        model = User
+        fields = ("username", "email")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['username'].label = "Usuario"
+        self.fields['username'].widget.attrs.update({
+            "class": "form-control",
+            "id": "id_username",
+            "placeholder": "Elige un nombre de usuario",
+            "autocomplete": "username",
+            "autocapitalize": "none",
+            "spellcheck": "false",
+            "inputmode": "text",
+            "aria-describedby": "usernameRegHelp",
+        })
+
+        self.fields['password1'].label = "Contraseña"
+        self.fields['password1'].widget.attrs.update({
+            "class": "form-control",
+            "id": "id_password1",
+            "placeholder": "Crea una contraseña segura",
+            "autocomplete": "new-password",
+            "aria-describedby": "password1Help",
+        })
+
+        self.fields['password2'].label = "Confirmar contraseña"
+        self.fields['password2'].widget.attrs.update({
+            "class": "form-control",
+            "id": "id_password2",
+            "placeholder": "Repite la contraseña",
+            "autocomplete": "new-password",
+            "aria-describedby": "password2Help",
+        })
+
+        for name in ("username", "password1", "password2"):
+            if self.fields[name].help_text:
+                self.fields[name].help_text = None
+
+    def clean_email(self):
+        email = self.cleaned_data["email"].lower()
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Este correo ya está registrado.")
+        return email

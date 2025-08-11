@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% block title %}
+  Registro
+{% endblock %}
+
+{% block content %}
+  <main class="d-flex flex-column justify-content-center container" role="main">
+    <div class="row justify-content-center">
+      <div class="col-sm-10 col-md-7 col-lg-6">
+        <section class="card shadow-sm border-0">
+          <header class="card-header bg-white border-0 pt-4 pb-0">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-person-plus" aria-hidden="true"></i>
+              <h1 class="h4 m-0">Crear cuenta</h1>
+            </div>
+          </header>
+
+          <div class="card-body pt-4">
+            {% if form.errors or form.non_field_errors %}
+              <div class="alert alert-info alert-dismissible fade show" role="alert" aria-live="polite">
+                <p class="mb-2">Hemos encontrado algunos detalles en el formulario:</p>
+
+                <ul class="mb-0 ps-3 small">
+                  {% if form.non_field_errors %}
+                    {% for err in form.non_field_errors %}
+                      <li>{{ err }}</li>
+                    {% endfor %}
+                  {% endif %}
+
+                  {% for field in form.visible_fields %}
+                    {% for error in field.errors %}
+                      <li>
+                        <a class="alert-link text-decoration-none" href="#{{ field.id_for_label }}">{{ field.label }}: {{ error }}</a>
+                      </li>
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+              </div>
+            {% endif %}
+
+            <form method="post" novalidate autocomplete="on">
+              {% csrf_token %}
+
+              {# Usuario #}
+              <div class="mb-3">
+                <label class="form-label" for="{{ form.username.id_for_label }}">Usuario</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                  <div class="invalid-feedback d-block">
+                    {% for e in form.username.errors %}
+                      {{ e }}{% if not forloop.last %}
+                        <br />
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+
+              {# Correo #}
+              <div class="mb-3">
+                <label class="form-label" for="{{ form.email.id_for_label }}">Correo</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                  <div class="invalid-feedback d-block">
+                    {% for e in form.email.errors %}
+                      {{ e }}{% if not forloop.last %}
+                        <br />
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="{{ form.password1.id_for_label }}">Contraseña</label>
+                <div class="input-group has-validation">
+                  {{ form.password1 }}
+                  <button class="btn bg-transparent position-absolute end-0" style="z-index:99" type="button" id="togglePwd1" aria-label="Mostrar u ocultar contraseña" aria-pressed="false"><i class="bi bi-eye" aria-hidden="true"></i></button>
+                </div>
+                {% if form.password1.errors %}
+                  <div class="invalid-feedback d-block">
+                    {% for e in form.password1.errors %}
+                      {{ e }}{% if not forloop.last %}
+                        <br />
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+
+              {# Contraseña 2 con toggle #}
+              <div class="mb-4">
+                <label class="form-label" for="{{ form.password2.id_for_label }}">Confirmar contraseña</label>
+                <div class="input-group has-validation">
+                  {{ form.password2 }}
+                  <button class="btn bg-transparent position-absolute end-0" style="z-index:99" type="button" id="togglePwd2" aria-label="Mostrar u ocultar confirmación" aria-pressed="false"><i class="bi bi-eye" aria-hidden="true"></i></button>
+                </div>
+                {% if form.password2.errors %}
+                  <div class="invalid-feedback d-block">
+                    {% for e in form.password2.errors %}
+                      {{ e }}{% if not forloop.last %}
+                        <br />
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="text-center my-3">
+                <small class="text-muted">
+                  ¿Ya tienes cuenta?
+                  <a href="{% url 'login' %}" class="link-primary fw-semibold">Inicia sesión</a>
+                </small>
+              </div>
+
+              <button class="btn btn-primary w-100" type="submit" id="submitBtn">
+                <span class="btn-text"><i class="bi bi-check2-circle" aria-hidden="true"></i> Registrarme</span>
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+              </button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    ;(function () {
+      const $ = (sel) => document.querySelector(sel)
+    
+      function makeToggle(btnId, inputId) {
+        const btn = document.getElementById(btnId)
+        const input = document.getElementById(inputId)
+        if (!btn || !input) return
+        btn.addEventListener('click', function () {
+          const show = input.type === 'password'
+          input.type = show ? 'text' : 'password'
+          this.setAttribute('aria-pressed', String(show))
+          const i = this.querySelector('i')
+          if (i) {
+            i.classList.toggle('bi-eye')
+            i.classList.toggle('bi-eye-slash')
+          }
+        })
+      }
+    
+      makeToggle('togglePwd1', '{{ form.password1.id_for_label }}')
+      makeToggle('togglePwd2', '{{ form.password2.id_for_label }}')
+    
+      const submit = $('#submitBtn')
+      if (submit) {
+        submit.form?.addEventListener('submit', function () {
+          submit.disabled = true
+          submit.querySelector('.btn-text')?.classList.add('d-none')
+          submit.querySelector('.spinner-border')?.classList.remove('d-none')
+        })
+      }
+    })()
+  </script>
+{% endblock %}
