@@ -11,6 +11,7 @@
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Eliminar</button>
     <a class="btn btn-secondary" href="{% url 'permission-list' %}">Cancelar</a>
+    <a class="btn btn-link" href="{% url 'dashboard' %}">Inicio</a>
   </form>
 </div>
 {% endblock %}

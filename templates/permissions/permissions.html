@@ -6,7 +6,10 @@
 {% block content %}
 <div class="container py-4">
   <h1>Permisos</h1>
-  <a class="btn btn-primary mb-3" href="{% url 'permission-create' %}"><i class="bi bi-plus"></i> Nuevo</a>
+  <div class="d-flex justify-content-between mb-3">
+    <a class="btn btn-link" href="{% url 'dashboard' %}"><i class="bi bi-house"></i> Inicio</a>
+    <a class="btn btn-primary" href="{% url 'permission-create' %}"><i class="bi bi-plus"></i> Nuevo</a>
+  </div>
   <table class="table table-striped">
     <thead><tr><th>Nombre</th><th>Código</th><th></th></tr></thead>
     <tbody>

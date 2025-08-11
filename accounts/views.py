@@ -53,7 +53,7 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = User
     template_name = 'users/users.html'
     paginate_by = 10
-    permission_required = 'accounts.view_user'
+    permission_required = 'user_view'
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -71,7 +71,7 @@ class UserCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = UserForm
     template_name = 'users/user_form.html'
     success_url = reverse_lazy('user-list')
-    permission_required = 'accounts.add_user'
+    permission_required = 'user_create'
 
 
 class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -79,14 +79,14 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = UserForm
     template_name = 'users/user_form.html'
     success_url = reverse_lazy('user-list')
-    permission_required = 'accounts.change_user'
+    permission_required = 'user_edit'
 
 
 class UserDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = User
     template_name = 'users/user_confirm_delete.html'
     success_url = reverse_lazy('user-list')
-    permission_required = 'accounts.delete_user'
+    permission_required = 'user_delete'
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -98,7 +98,7 @@ class UserDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 class RoleListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Role
     template_name = 'roles/roles.html'
-    permission_required = 'accounts.view_role'
+    permission_required = 'role_view'
 
 
 class RoleCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -106,7 +106,7 @@ class RoleCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = RoleForm
     template_name = 'roles/role_form.html'
     success_url = reverse_lazy('role-list')
-    permission_required = 'accounts.add_role'
+    permission_required = 'role_create'
 
 
 class RoleUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -114,20 +114,20 @@ class RoleUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = RoleForm
     template_name = 'roles/role_form.html'
     success_url = reverse_lazy('role-list')
-    permission_required = 'accounts.change_role'
+    permission_required = 'role_edit'
 
 
 class RoleDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Role
     template_name = 'roles/role_confirm_delete.html'
     success_url = reverse_lazy('role-list')
-    permission_required = 'accounts.delete_role'
+    permission_required = 'role_delete'
 
 
 class PermissionListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Permission
     template_name = 'permissions/permissions.html'
-    permission_required = 'accounts.view_permission'
+    permission_required = 'permission_view'
 
 
 class PermissionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -135,7 +135,7 @@ class PermissionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateVi
     form_class = PermissionForm
     template_name = 'permissions/permission_form.html'
     success_url = reverse_lazy('permission-list')
-    permission_required = 'accounts.add_permission'
+    permission_required = 'permission_create'
 
 
 class PermissionUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -143,11 +143,11 @@ class PermissionUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVi
     form_class = PermissionForm
     template_name = 'permissions/permission_form.html'
     success_url = reverse_lazy('permission-list')
-    permission_required = 'accounts.change_permission'
+    permission_required = 'permission_edit'
 
 
 class PermissionDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Permission
     template_name = 'permissions/permission_confirm_delete.html'
     success_url = reverse_lazy('permission-list')
-    permission_required = 'accounts.delete_permission'
+    permission_required = 'permission_delete'
