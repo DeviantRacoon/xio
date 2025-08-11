@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}[ENTITY_NAME]{% endblock %}
+{% block module_css %}
+<link rel="stylesheet" href="{% static '[ENTITY_KEY]/[ENTITY_KEY].css' %}" />
+{% endblock %}
+
+{% block content %}
+<a class="skip-link" href="#main-content">Saltar al contenido</a>
+<section id="main-content" class="container-fluid py-4" aria-labelledby="[ENTITY_KEY]-heading">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+      <h1 id="[ENTITY_KEY]-heading" class="h3 mb-0">[ENTITY_NAME]</h1>
+      <p class="text-muted" aria-live="polite">Total: <span id="[ENTITY_KEY]-count">[TOTAL_COUNT]</span></p>
+    </div>
+    <div class="btn-group" role="group" aria-label="Acciones principales">
+      <a href="[CREATE_ROUTE]" class="btn btn-primary" accesskey="n"><i class="bi bi-plus-lg" aria-hidden="true"></i> <span class="visually-hidden">Nuevo</span></a>
+      <a href="[EXPORT_ROUTE]" class="btn btn-outline-secondary"><i class="bi bi-file-earmark-spreadsheet" aria-hidden="true"></i> <span class="visually-hidden">Exportar</span></a>
+      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#shortcutsModal"><i class="bi bi-keyboard" aria-hidden="true"></i> <span class="visually-hidden">Atajos</span></button>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="card mb-3" aria-labelledby="[ENTITY_KEY]-filters-label">
+    <div class="card-header" id="[ENTITY_KEY]-filters-label">Filtros</div>
+    <div class="card-body">
+      <form method="get" class="row gy-2 gx-3 align-items-end" id="[ENTITY_KEY]-filters" aria-describedby="[ENTITY_KEY]-filters-status" aria-live="polite">
+        <!-- TODO: Reemplazar filtros -->
+        [FILTERS]
+        <div class="col-12 col-md-auto">
+          <label for="[ENTITY_KEY]-order" class="form-label">Ordenar por</label>
+          <select id="[ENTITY_KEY]-order" name="order" class="form-select">
+            [DEFAULT_SORT_OPTIONS]
+          </select>
+        </div>
+        <div class="col-12 col-md-auto">
+          <button type="submit" class="btn btn-primary">Aplicar</button>
+        </div>
+      </form>
+      <div id="[ENTITY_KEY]-filters-status" class="visually-hidden" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- Toolbar secundaria -->
+  <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2" aria-label="Acciones masivas">
+    <div class="btn-group" role="group">
+      <!-- TODO: Acciones masivas -->
+      [BULK_ACTIONS]
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-layout-three-columns" aria-hidden="true"></i> Columnas
+      </button>
+      <ul class="dropdown-menu" id="[ENTITY_KEY]-columns" aria-labelledby="[ENTITY_KEY]-columns-label">
+        <!-- TODO: columnas -->
+        <li><label class="dropdown-item"><input class="form-check-input me-2" type="checkbox" data-column="col1" checked /> Columna 1</label></li>
+        <li><label class="dropdown-item"><input class="form-check-input me-2" type="checkbox" data-column="col2" checked /> Columna 2</label></li>
+        <li><label class="dropdown-item"><input class="form-check-input me-2" type="checkbox" data-column="col3" checked /> Columna 3</label></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Tabla -->
+  <div class="table-responsive">
+    <table class="table table-sm align-middle" id="[ENTITY_KEY]-table">
+      <caption class="visually-hidden">Listado de [ENTITY_NAME]</caption>
+      <thead class="sticky-top">
+        <tr>
+          <th scope="col" style="width: 44px"><input type="checkbox" id="[ENTITY_KEY]-select-all" class="form-check-input" /></th>
+          <!-- TODO: Encabezados -->
+          [COLUMNS]
+          <th scope="col" class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- TODO: iterar sobre objetos -->
+        <tr data-id="1">
+          <th scope="row"><input type="checkbox" class="form-check-input" /></th>
+          <td class="[ENTITY_KEY]-name"><button type="button" class="btn btn-link p-0 text-start detail-trigger" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDetail" aria-controls="offcanvasDetail">Ejemplo nombre</button></td>
+          <td><span class="badge bg-success">Activo</span></td>
+          <td>
+            <span class="chip">Etiqueta 1</span>
+            <span class="chip">Etiqueta 2</span>
+          </td>
+          <td class="text-end">
+            <a href="[EDIT_ROUTE(1)]" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil" aria-hidden="true"></i><span class="visually-hidden">Editar</span></a>
+            <a href="[DELETE_ROUTE(1)]" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash" aria-hidden="true"></i><span class="visualmente-hidden">Borrar</span></a>
+          </td>
+        </tr>
+        <tr class="table-empty"><td colspan="99" class="text-center py-5">No hay registros</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Paginación -->
+  <nav aria-label="Paginación">
+    <ul class="pagination">
+      <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+      <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+    </ul>
+  </nav>
+</section>
+
+<!-- Offcanvas detalle -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasDetail" aria-labelledby="offcanvasDetailLabel">
+  <div class="offcanvas-header">
+    <h2 id="offcanvasDetailLabel" class="h5">Detalles</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div id="offcanvasContent">Seleccione un registro.</div>
+    <div class="mt-3 d-flex gap-2">
+      <a href="#" class="btn btn-primary flex-fill" id="offcanvasEdit">Editar</a>
+      <a href="#" class="btn btn-outline-danger flex-fill" id="offcanvasDelete">Desactivar</a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de atajos -->
+<div class="modal" tabindex="-1" id="shortcutsModal" aria-labelledby="shortcutsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title h5" id="shortcutsModalLabel">Atajos de teclado</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li><kbd>N</kbd>: Nuevo</li>
+          <li><kbd>F</kbd>: Buscar</li>
+          <li><kbd>?</kbd>: Ayuda</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block module_js %}
+<script src="{% static '[ENTITY_KEY]/[ENTITY_KEY].js' %}"></script>
+{% endblock %}

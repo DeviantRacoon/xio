@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}[ENTITY_NAME] - Formulario{% endblock %}
+{% block module_css %}
+<link rel="stylesheet" href="{% static '[ENTITY_KEY]/[ENTITY_KEY].css' %}" />
+{% endblock %}
+
+{% block content %}
+<a class="skip-link" href="#main-content">Saltar al contenido</a>
+<div class="container py-4" id="main-content">
+  <nav aria-label="Breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="[LIST_ROUTE]">[ENTITY_NAME]</a></li>
+      <li class="breadcrumb-item active" aria-current="page">[FORM_ACTION]</li>
+    </ol>
+  </nav>
+
+  <h1 class="h3 mb-3">[FORM_ACTION] [ENTITY_NAME]</h1>
+
+  <form method="post" novalidate aria-describedby="form-errors" id="[ENTITY_KEY]-form">
+    {% csrf_token %}
+    <div id="form-errors" role="alert">
+      <!-- TODO: errores globales -->
+    </div>
+
+    <ul class="nav nav-tabs" id="[ENTITY_KEY]-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">Perfil</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="perm-tab" data-bs-toggle="tab" data-bs-target="#perm" type="button" role="tab" aria-controls="perm" aria-selected="false">Permisos</button>
+      </li>
+    </ul>
+    <div class="tab-content pt-3">
+      <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+        <!-- TODO: campos de perfil/datos básicos -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" required />
+          <label for="name">Nombre</label>
+          <div class="invalid-feedback">Campo obligatorio.</div>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="email" name="email" placeholder="Email" />
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="perm" role="tabpanel" aria-labelledby="perm-tab">
+        <!-- TODO: campos de permisos/estado -->
+        <div class="form-check form-switch mb-3">
+          <input class="form-check-input" type="checkbox" role="switch" id="is_active" name="is_active" />
+          <label class="form-check-label" for="is_active">Activo</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions border-top bg-body position-sticky bottom-0 py-3 mt-4 d-flex justify-content-end gap-2">
+      <a href="[LIST_ROUTE]" class="btn btn-outline-secondary">Cancelar</a>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+{% block module_js %}
+<script src="{% static '[ENTITY_KEY]/[ENTITY_KEY].js' %}"></script>
+{% endblock %}
