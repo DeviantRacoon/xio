@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Eliminar Permiso{% endblock %}
+{% block module_css %}<link rel="stylesheet" href="{% static 'permissions/permissions.css' %}">{% endblock %}
+{% block module_js %}<script src="{% static 'permissions/permissions.js' %}"></script>{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h1>Eliminar Permiso</h1>
+  <p>¿Deseas eliminar el permiso {{ object.name }}?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a class="btn btn-secondary" href="{% url 'permission-list' %}">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

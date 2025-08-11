@@ -17,4 +17,6 @@ urlpatterns = [
 
     path('login/', LoginViewBootstrap.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('', include('accounts.urls')),
+    path('inventory/', include('inventory.urls')),
 ]

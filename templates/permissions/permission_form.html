@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Permiso{% endblock %}
+{% block module_css %}<link rel="stylesheet" href="{% static 'permissions/permissions.css' %}">{% endblock %}
+{% block module_js %}<script src="{% static 'permissions/permissions.js' %}"></script>{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h1>{% if object %}Editar{% else %}Nuevo{% endif %} Permiso</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a class="btn btn-secondary" href="{% url 'permission-list' %}">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

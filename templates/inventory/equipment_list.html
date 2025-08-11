@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Inventario{% endblock %}
+{% block module_css %}<link rel="stylesheet" href="{% static 'inventory/equipment_list.css' %}">{% endblock %}
+{% block module_js %}<script src="{% static 'inventory/equipment_list.js' %}"></script>{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h1>Inventario</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Código</th><th>Serie</th><th>Categoría</th><th>Ubicación</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in object_list %}
+      <tr>
+        <td>{{ item.internal_code }}</td>
+        <td>{{ item.serial_number }}</td>
+        <td>{{ item.category.name }}</td>
+        <td>{{ item.location.name }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="4">Sin equipos</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

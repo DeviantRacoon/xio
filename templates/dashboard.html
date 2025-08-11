@@ -35,15 +35,14 @@
       <div class="bg-white border rounded shadow-sm p-3 p-md-4">
         <h2 class="h6 text-uppercase text-muted mb-3">Secciones</h2>
         <div class="row g-3">
-          <!-- Ejemplos: sustituye urls reales -->
           <div class="col-12 col-sm-6">
-            <a class="text-decoration-none" href="{% url 'dashboard' %}">
+            <a class="text-decoration-none" href="{% url 'user-list' %}">
               <div class="card border-0 shadow-sm h-100 hover-shadow">
                 <div class="card-body d-flex align-items-center gap-3">
                   <span class="fs-3"><i class="bi bi-people"></i></span>
                   <div>
                     <div class="fw-semibold">Usuarios</div>
-                    <div class="text-muted small">Gestión de cuentas y roles</div>
+                    <div class="text-muted small">Gestión de cuentas</div>
                   </div>
                 </div>
               </div>
@@ -51,13 +50,13 @@
           </div>
 
           <div class="col-12 col-sm-6">
-            <a class="text-decoration-none" href="#">
+            <a class="text-decoration-none" href="{% url 'role-list' %}">
               <div class="card border-0 shadow-sm h-100 hover-shadow">
                 <div class="card-body d-flex align-items-center gap-3">
-                  <span class="fs-3"><i class="bi bi-card-checklist"></i></span>
+                  <span class="fs-3"><i class="bi bi-shield-lock"></i></span>
                   <div>
-                    <div class="fw-semibold">Tareas</div>
-                    <div class="text-muted small">Asignaciones y pendientes</div>
+                    <div class="fw-semibold">Roles</div>
+                    <div class="text-muted small">Agrupar permisos</div>
                   </div>
                 </div>
               </div>
@@ -65,13 +64,13 @@
           </div>
 
           <div class="col-12 col-sm-6">
-            <a class="text-decoration-none" href="#">
+            <a class="text-decoration-none" href="{% url 'permission-list' %}">
               <div class="card border-0 shadow-sm h-100 hover-shadow">
                 <div class="card-body d-flex align-items-center gap-3">
-                  <span class="fs-3"><i class="bi bi-activity"></i></span>
+                  <span class="fs-3"><i class="bi bi-key"></i></span>
                   <div>
-                    <div class="fw-semibold">Eventos</div>
-                    <div class="text-muted small">Actividad reciente</div>
+                    <div class="fw-semibold">Permisos</div>
+                    <div class="text-muted small">Accesos granulares</div>
                   </div>
                 </div>
               </div>
@@ -79,23 +78,16 @@
           </div>
 
           <div class="col-12 col-sm-6">
-            <a class="text-decoration-none" href="#">
+            <a class="text-decoration-none" href="{% url 'inventory:equipment-list' %}">
               <div class="card border-0 shadow-sm h-100 hover-shadow">
                 <div class="card-body d-flex align-items-center gap-3">
-                  <span class="fs-3"><i class="bi bi-gear-wide-connected"></i></span>
+                  <span class="fs-3"><i class="bi bi-hdd-stack"></i></span>
                   <div>
-                    <div class="fw-semibold">Ajustes</div>
-                    <div class="text-muted small">Preferencias del sistema</div>
+                    <div class="fw-semibold">Inventario</div>
+                    <div class="text-muted small">Equipos y movimientos</div>
                   </div>
                 </div>
               </div>
-            </a>
-          </div>
-
-          <!-- CTA si quieres agregar más módulos -->
-          <div class="col-12">
-            <a class="btn btn-outline-primary w-100" data-bs-toggle="offcanvas" data-bs-target="#appDrawer">
-              <i class="bi bi-grid" aria-hidden="true"></i> Ver todas las opciones
             </a>
           </div>
         </div>
@@ -181,23 +173,23 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
   </div>
   <div class="offcanvas-body">
-    <div class="list-group list-group-flush">
-      <a class="list-group-item list-group-item-action d-flex align-items-center gap-2" href="{% url 'dashboard' %}">
-        <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
-      </a>
-      <a class="list-group-item list-group-item-action d-flex align-items-center gap-2" href="#">
-        <i class="bi bi-people"></i> <span>Usuarios</span>
-      </a>
-      <a class="list-group-item list-group-item-action d-flex align-items-center gap-2" href="#">
-        <i class="bi bi-card-checklist"></i> <span>Tareas</span>
-      </a>
-      <a class="list-group-item list-group-item-action d-flex align-items-center gap-2" href="#">
-        <i class="bi bi-activity"></i> <span>Eventos</span>
-      </a>
-      <a class="list-group-item list-group-item-action d-flex align-items-center gap-2" href="#">
-        <i class="bi bi-gear-wide-connected"></i> <span>Ajustes</span>
-      </a>
-    </div>
+      <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action d-flex align-items-center gap-2" href="{% url 'dashboard' %}">
+          <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+        </a>
+        <a class="list-group-item list-group-item-action d-flex align-items-center gap-2" href="{% url 'user-list' %}">
+          <i class="bi bi-people"></i> <span>Usuarios</span>
+        </a>
+        <a class="list-group-item list-group-item-action d-flex align-items-center gap-2" href="{% url 'role-list' %}">
+          <i class="bi bi-shield-lock"></i> <span>Roles</span>
+        </a>
+        <a class="list-group-item list-group-item-action d-flex align-items-center gap-2" href="{% url 'permission-list' %}">
+          <i class="bi bi-key"></i> <span>Permisos</span>
+        </a>
+        <a class="list-group-item list-group-item-action d-flex align-items-center gap-2" href="{% url 'inventory:equipment-list' %}">
+          <i class="bi bi-hdd-stack"></i> <span>Inventario</span>
+        </a>
+      </div>
 
     <hr class="my-3">
 
