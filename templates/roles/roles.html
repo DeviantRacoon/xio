@@ -6,7 +6,7 @@
 {% block content %}
 <div class="container py-4">
   <h1>Roles</h1>
-  <a class="btn btn-primary mb-3" href="{% url 'accounts:role-create' %}"><i class="bi bi-plus"></i> Nuevo</a>
+  <a class="btn btn-primary mb-3" href="{% url 'role-create' %}"><i class="bi bi-plus"></i> Nuevo</a>
   <table class="table table-striped">
     <thead><tr><th>Nombre</th><th></th></tr></thead>
     <tbody>
@@ -14,8 +14,8 @@
       <tr>
         <td>{{ role.name }}</td>
         <td>
-          <a class="btn btn-sm btn-secondary" href="{% url 'accounts:role-edit' role.pk %}"><i class="bi bi-pencil"></i></a>
-          <a class="btn btn-sm btn-danger" href="{% url 'accounts:role-delete' role.pk %}"><i class="bi bi-trash"></i></a>
+          <a class="btn btn-sm btn-secondary" href="{% url 'role-edit' role.pk %}"><i class="bi bi-pencil"></i></a>
+          <a class="btn btn-sm btn-danger" href="{% url 'role-delete' role.pk %}"><i class="bi bi-trash"></i></a>
         </td>
       </tr>
     {% empty %}

@@ -6,7 +6,7 @@
 {% block content %}
 <div class="container py-4">
   <h1>Usuarios</h1>
-  <a class="btn btn-primary mb-3" href="{% url 'accounts:user-create' %}"><i class="bi bi-plus"></i> Nuevo</a>
+  <a class="btn btn-primary mb-3" href="{% url 'user-create' %}"><i class="bi bi-plus"></i> Nuevo</a>
   <table class="table table-striped">
     <thead>
       <tr><th>Usuario</th><th>Email</th><th>Activo</th><th></th></tr>
@@ -18,8 +18,8 @@
         <td>{{ user.email }}</td>
         <td>{{ user.is_active|yesno:"Sí,No" }}</td>
         <td>
-          <a class="btn btn-sm btn-secondary" href="{% url 'accounts:user-edit' user.pk %}"><i class="bi bi-pencil"></i></a>
-          <a class="btn btn-sm btn-danger" href="{% url 'accounts:user-delete' user.pk %}"><i class="bi bi-trash"></i></a>
+          <a class="btn btn-sm btn-secondary" href="{% url 'user-edit' user.pk %}"><i class="bi bi-pencil"></i></a>
+          <a class="btn btn-sm btn-danger" href="{% url 'user-delete' user.pk %}"><i class="bi bi-trash"></i></a>
         </td>
       </tr>
     {% empty %}
